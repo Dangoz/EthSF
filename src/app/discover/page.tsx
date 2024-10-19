@@ -1,3 +1,5 @@
+"use client";
+
 import { ReviewCard } from '@/components/common/ReviewCard';
 import React from 'react'
 
@@ -160,7 +162,7 @@ const page = () => {
     <>
     <div>Discover</div>
     {
-      locationReviewData.map((card) => <ReviewCard {...card} onDislike={console.log} onLike={console.log}/>)
+      locationReviewData.map((card, index) => <ReviewCard key={index}  {...card} onDislike={console.log} onLike={console.log}/>)
     }
     </>
   )
