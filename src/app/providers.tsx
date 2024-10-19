@@ -1,4 +1,5 @@
 'use client'
+import Web3Providers from '@/components/Web3Provider'
 
 import React from 'react'
 // import Stats from '@/components/common/Stats'
@@ -8,8 +9,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      {children}
-      {/* {process.env.NODE_ENV === 'production' ? null : <Stats />} */}
+      <Web3Providers>
+        {children}
+      </Web3Providers>
     </>
   )
 }
