@@ -1,12 +1,12 @@
 import { PinataSDK } from "pinata";
 
 const pinata = new PinataSDK({
-  pinataJwt: process.env.NEXT_PUBLIC_PINATA_JWT,
+  pinataJwt: process.env.PINATA_JWT!,
   pinataGateway: "aqua-blank-cuckoo-456.mypinata.cloud",
 });
 
-export const getIPFSUrl = (hash: string) => {
-  return `https://aqua-blank-cuckoo-456.mypinata.cloud/ipfs/${hash}`
+export const getIPFSUrl = (cid: string) => {
+  return `https://aqua-blank-cuckoo-456.mypinata.cloud/ipfs/${cid}`;
 }
 
 export const uploadImageToIPFS = async (imageBlob: Blob) => {
