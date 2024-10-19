@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import NavMenu from './NavMenu'
 import { DynamicWidget } from '@dynamic-labs/sdk-react-core'
@@ -10,7 +12,7 @@ const NavBar = () => {
         <div className="">
           <NavMenu />
         </div>
-        <DynamicWidget />
+        {/* <DynamicWidget /> */}
       </div>
       <CreateButton />
     </>

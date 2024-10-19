@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 import { PlusIcon } from 'lucide-react'
 import {
   Dialog,
@@ -14,8 +16,30 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Copy } from "lucide-react"
+import { Textarea } from "@/components/ui/textarea"
+import { Loader } from "lucide-react"
+import { uploadImageToIPFS, uploadJSONToIPFS, getIPFSUrl } from '@/lib/pinata'
 
 const CreateButton = () => {
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [image, setImage] = useState<File | null>(null)
+  const [isCreating, setIsCreating] = useState(false)
+
+  const handleCreateReview = async () => {
+    setIsCreating(true)
+
+    // if image is present, upload to ipfs
+    console.log(image)
+    let imageIpfsHash = null
+    if (image) {
+      const cid = await uploadImageToIPFS(image)
+      imageIpfsHash = getIPFSUrl(cid)
+    }
+
+    setIsCreating(false)
+  }
+
   return (<>
 
     <Dialog>
@@ -33,30 +57,41 @@ const CreateButton = () => {
 
           </DialogDescription>
         </DialogHeader>
-        <div className="flex items-center space-x-2">
-          <div className="grid flex-1 gap-2">
-            <Label htmlFor="link" className="sr-only">
-              Link
-            </Label>
-            <Input
-              id="link"
-              defaultValue="https://ui.shadcn.com/docs/installation"
-              readOnly
-            />
-          </div>
-          <Button type="submit" size="sm" className="px-3">
-            <span className="sr-only">Copy</span>
-            <Copy className="h-4 w-4" />
-          </Button>
+
+
+        {/* title */}
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="title" className="text-sm font-medium">Title</Label>
+          <Input id="title" onChange={(e) => setTitle(e.target.value)} />
         </div>
+
+        {/* description */}
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="description" className="text-sm font-medium">Description</Label>
+          <Textarea id="description" onChange={(e) => setDescription(e.target.value)} />
+        </div>
+
+        {/* media - image */}
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="image" className="text-sm font-medium">Image</Label>
+          <Input id="image" type="file" onChange={(e) => setImage(e.target.files?.[0] || null)} />
+        </div>
+
+        {/* when image is present, preview image */}
+        {image && (
+          <div className="flex flex-col">
+            <img src={URL.createObjectURL(image)} alt="preview" className="w-full h-48 object-contain" />
+          </div>
+        )}
+
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
             <Button type="button" variant="secondary">
               Close
             </Button>
           </DialogClose>
-          <Button type='submit'>
-            Submit
+          <Button onClick={handleCreateReview} disabled={isCreating || !title || !description}>
+            {isCreating ? <Loader className="w-4 h-4 animate-spin" /> : 'Create Review'}
           </Button>
         </DialogFooter>
       </DialogContent>
