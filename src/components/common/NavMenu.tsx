@@ -11,7 +11,7 @@ const NavMenu = () => {
   return (
     <>
       <nav className={cn(
-        "bg-slate-900 px-2 py-2 rounded-sm gap-4 flex",
+        "bg-black px-2 py-2 rounded-sm gap-4 flex",
         "shadow-[rgba(111,109,120,0.1)_0px_0px_30px,rgba(60,57,63,0.4)_0px_0px_0px_1px]"
       )}
       >

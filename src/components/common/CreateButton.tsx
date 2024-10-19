@@ -28,9 +28,9 @@ const CreateButton = () => {
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Share link</DialogTitle>
+          <DialogTitle>Write Review</DialogTitle>
           <DialogDescription>
-            Anyone who has this link will be able to view this.
+
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center space-x-2">
@@ -55,6 +55,9 @@ const CreateButton = () => {
               Close
             </Button>
           </DialogClose>
+          <Button type='submit'>
+            Submit
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
