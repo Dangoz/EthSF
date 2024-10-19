@@ -1,6 +1,7 @@
 "use client";
 
 import { ReviewCard } from '@/components/common/ReviewCard';
+import { Title } from '@/components/common/Title';
 import { Wrapper } from '@/components/common/Wrapper';
 import React from 'react'
 
@@ -161,7 +162,7 @@ const locationReviewData: { title: string; description: string; imageUrl: string
 const page = () => {
   return (
     <Wrapper>
-    <div>Discover</div>
+    <Title name="Discover"/>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {
         locationReviewData.map((card, index) => <ReviewCard key={index}  {...card}/>)
