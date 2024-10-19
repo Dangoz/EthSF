@@ -1,6 +1,7 @@
 "use client";
 
 import { ReviewCard } from '@/components/common/ReviewCard';
+import { Wrapper } from '@/components/common/Wrapper';
 import React from 'react'
 
 const locationReviewData: { title: string; description: string; imageUrl: string }[] = [
@@ -159,7 +160,7 @@ const locationReviewData: { title: string; description: string; imageUrl: string
 
 const page = () => {
   return (
-    <>
+    <Wrapper>
     <div>Discover</div>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {
@@ -167,7 +168,7 @@ const page = () => {
       }
     </div>
     
-    </>
+    </Wrapper>
   )
 }
 
