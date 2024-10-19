@@ -1,9 +1,12 @@
 "use client";
 
 import { ReviewCard } from '@/components/common/ReviewCard';
+import { SearchSelectTabs } from '@/components/common/SearchSelectTabs';
 import { Title } from '@/components/common/Title';
 import { Wrapper } from '@/components/common/Wrapper';
-import React from 'react'
+import React, { useState } from 'react'
+import { Input } from "@/components/ui/input"
+
 
 const locationReviewData: { title: string; description: string; imageUrl: string }[] = [
   {
@@ -160,9 +163,15 @@ const locationReviewData: { title: string; description: string; imageUrl: string
 
 
 const page = () => {
+  const [searchSelect, onChangeSearchSelect] = useState("foodanddrink")
+  const [searchText, onChangeSearchText] = useState('')
+
   return (
     <Wrapper>
     <Title name="Discover"/>
+    <Input type="text" placeholder="Search" value={searchText} onChange={(e) => onChangeSearchText(e.target.value)}/>
+    <SearchSelectTabs activeTab={searchSelect} onTabChange={onChangeSearchSelect}/>
+    
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {
         locationReviewData.map((card, index) => <ReviewCard key={index}  {...card}/>)
