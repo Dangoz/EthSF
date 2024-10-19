@@ -161,9 +161,12 @@ const page = () => {
   return (
     <>
     <div>Discover</div>
-    {
-      locationReviewData.map((card, index) => <ReviewCard key={index}  {...card} onDislike={console.log} onLike={console.log}/>)
-    }
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {
+        locationReviewData.map((card, index) => <ReviewCard key={index}  {...card} onDislike={() => console.log(`Disiked ${card.title}`)} onLike={() => console.log(`Liked ${card.title}`)}/>)
+      }
+    </div>
+    
     </>
   )
 }
