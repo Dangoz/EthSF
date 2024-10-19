@@ -6,7 +6,9 @@ const NavBar = () => {
   return (
     <div className="flex justify-between items-center mx-10">
       <div />
-      <NavMenu />
+      <div className="">
+        <NavMenu />
+      </div>
       <DynamicWidget />
     </div>
   )
