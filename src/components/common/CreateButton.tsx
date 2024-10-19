@@ -31,10 +31,11 @@ const CreateButton = () => {
 
     // if image is present, upload to ipfs
     console.log(image)
-    let imageIpfsHash = null
+    let ipfsUrl = null
     if (image) {
       const cid = await uploadImageToIPFS(image)
-      imageIpfsHash = getIPFSUrl(cid)
+      ipfsUrl = getIPFSUrl(cid)
+      console.log(ipfsUrl)
     }
 
     setIsCreating(false)
@@ -46,7 +47,7 @@ const CreateButton = () => {
 
       <DialogTrigger asChild>
         <div className="fixed bottom-10 right-10 cursor-pointer">
-          <PlusIcon className="w-10 h-10 text-purple-500 rounded-full bg-white hover:bg-gray-600 p-2" />
+          <PlusIcon className="w-10 h-10 text-red-500 rounded-full bg-white hover:bg-gray-600 p-2" />
         </div>
       </DialogTrigger>
 
