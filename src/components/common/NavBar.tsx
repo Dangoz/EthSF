@@ -1,16 +1,19 @@
 import React from 'react'
 import NavMenu from './NavMenu'
 import { DynamicWidget } from '@dynamic-labs/sdk-react-core'
+import CreateButton from './CreateButton'
 
 const NavBar = () => {
   return (
-    <div className="flex justify-between items-center mx-10">
-      <div />
-      <div className="">
-        <NavMenu />
+    <>
+      <div className="flex justify-between items-center px-10 pt-4 w-screen ">
+        <div className="">
+          <NavMenu />
+        </div>
+        <DynamicWidget />
       </div>
-      <DynamicWidget />
-    </div>
+      <CreateButton />
+    </>
   )
 }
 

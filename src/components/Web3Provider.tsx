@@ -93,7 +93,7 @@ function StoryProviderWrapper({ children }: PropsWithChildren<{}>) {
     <StoryProvider
       config={{
         chainId: "iliad",
-        transport: http(process.env.NEXT_PUBLIC_RPC_PROVIDER_URL) || http("https://testnet.storyrpc.io"),
+        transport: http("https://testnet.storyrpc.io"),
         wallet: wallet || dummyWallet,
       }}
     >
