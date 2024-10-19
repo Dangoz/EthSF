@@ -6,7 +6,7 @@ import CreateButton from './CreateButton'
 const NavBar = () => {
   return (
     <>
-      <div className="flex justify-between items-center px-10 pt-4 w-screen ">
+      <div className="flex justify-between items-center px-5 pt-4 w-screen ">
         <div className="">
           <NavMenu />
         </div>
