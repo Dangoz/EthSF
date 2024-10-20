@@ -35,6 +35,12 @@ export const ReviewCard = (props: {title: string, description: string, imageUrl:
         <div onClick={handelLike} className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:scale-105">
           <Heart className="w-6 h-6 text-red-500" />
         </div>
+        {/*
+        <div onClick={handelDislike} className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:scale-105">
+          <Add className="w-6 h-6 text-gray-700" />
+        </div>
+        */}
+
       </>
       </CardFooter>
     </Card>

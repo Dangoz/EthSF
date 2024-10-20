@@ -22,7 +22,7 @@ export async function generateIpMetadata(
   const nftMetadata = {
     name: title,
     description,
-    mediaUrl,
+    image: mediaUrl,
   };
 
   const ipIpfsHash = await uploadJSONToIPFS(ipMetadata);

@@ -48,8 +48,8 @@ const CreateButton = () => {
     console.log(image)
     let ipfsUrl = ''
     if (image) {
-      const cid = await uploadImageToIPFS(image)
-      ipfsUrl = getIPFSUrl(cid)
+      const ipfsHash = await uploadImageToIPFS(image)
+      ipfsUrl = getIPFSUrl(ipfsHash)
       console.log(ipfsUrl)
     }
 
@@ -62,7 +62,7 @@ const CreateButton = () => {
         nftContract: process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as Address,
         pilType: license,
         mintingFee: 0,
-        currency: '0xB132A6B7AE652c974EE1557A3521D53d18F6739f',
+        currency: '0x91f6F05B08c16769d3c85867548615d270C42fC7',
         commercialRevShare: 0,
         ipMetadata,
         txOptions: { waitForTransaction: true },
