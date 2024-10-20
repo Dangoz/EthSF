@@ -4,7 +4,7 @@ import { ReviewCard } from '@/components/common/ReviewCard';
 import { SearchSelectTabs } from '@/components/common/SearchSelectTabs';
 import { Title } from '@/components/common/Title';
 import { Wrapper } from '@/components/common/Wrapper';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Input } from "@/components/ui/input"
 
 
@@ -166,6 +166,12 @@ const page = () => {
   const [searchSelect, onChangeSearchSelect] = useState("foodanddrink")
   const [searchText, onChangeSearchText] = useState('')
 
+  const [shownReviews, setShownReviews] = useState(locationReviewData)
+
+  useEffect(() => {
+    setShownReviews(locationReviewData.filter(card => searchText === '' ? true : card.title.includes(searchText) || card.description.includes(searchText)))
+  }, [searchText])
+
   return (
     <Wrapper>
     <Title name="Discover"/>
@@ -174,7 +180,7 @@ const page = () => {
     
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {
-        locationReviewData.map((card, index) => <ReviewCard key={index}  {...card}/>)
+        shownReviews.map((card, index) => <ReviewCard key={index}  {...card}/>)
       }
     </div>
     

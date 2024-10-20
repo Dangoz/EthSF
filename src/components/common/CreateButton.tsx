@@ -131,7 +131,7 @@ const CreateButton = () => {
               Close
             </Button>
           </DialogClose>
-          <Button onClick={handleNFTCreation} disabled={isCreating || !title || !description}>
+          <Button onClick={handleCreateReview} disabled={isCreating || !title || !description}>
             {isCreating ? <Loader className="w-4 h-4 animate-spin" /> : 'Create Review'}
           </Button>
         </DialogFooter>
