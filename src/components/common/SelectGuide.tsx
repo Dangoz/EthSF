@@ -21,7 +21,7 @@ import {
 import { Guide } from "@prisma/client"
 
 
-export function SelectGuide(props: {guides: Guide[]}) {
+export function SelectGuide(props: { guides: Guide[], onSelect: (guide: `0x${string}`) => void }) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
 
@@ -49,9 +49,10 @@ export function SelectGuide(props: {guides: Guide[]}) {
                 <CommandItem
                   key={framework.value}
                   value={framework.value}
-                  onSelect={(currentValue) => {
+                  onSelect={(currentValue: string) => {
                     setValue(currentValue === value ? "" : currentValue)
                     setOpen(false)
+                    props.onSelect(currentValue as `0x${string}`)
                   }}
                 >
                   <Check

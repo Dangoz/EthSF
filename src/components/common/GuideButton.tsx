@@ -33,7 +33,7 @@ const CreateButton = () => {
   const [description, setDescription] = useState('')
   const [image, setImage] = useState<File | null>(null)
   const [isCreating, setIsCreating] = useState(false)
-  const [license, setLicense] = useState<PIL_TYPE>(PIL_TYPE.COMMERCIAL_USE)
+  const [license, setLicense] = useState<PIL_TYPE>(PIL_TYPE.COMMERCIAL_REMIX)
   const { data: wallet } = useWalletClient()
   const { toast } = useToast()
   const { createNFTCollection } = useNftClient();
