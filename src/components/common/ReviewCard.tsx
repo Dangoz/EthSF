@@ -24,6 +24,9 @@ export const ReviewCard = (props: {guides: Guide[], title: string, description: 
   const handelAdd: MouseEventHandler<HTMLDivElement> = (e) => {props.onAdd(!props.isAdded); e.stopPropagation()}
 
   const handelClick = () => console.log(`Clicked ${props.title}`)
+
+  console.log("Guides", props.guides)
+
   return (
   <Card onClick={handelClick}>
     <CardHeader>
@@ -51,7 +54,7 @@ export const ReviewCard = (props: {guides: Guide[], title: string, description: 
           <Heart className="w-6 h-6 text-red-500" />
         </div>
         
-          <SelectGuide guides={props.guides}/>
+          {props.guides ? <SelectGuide guides={props.guides}/> : null}
         
       </>
       </CardFooter>
