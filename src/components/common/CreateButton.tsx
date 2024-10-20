@@ -129,7 +129,7 @@ const CreateButton = () => {
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Write Reviewwwwwssss</DialogTitle>
+          <DialogTitle>Write Reviews</DialogTitle>
           <DialogDescription>
 
           </DialogDescription>
