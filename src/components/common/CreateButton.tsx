@@ -25,6 +25,8 @@ import { generateIpMetadata } from '@/lib/story/generateIpMetadata'
 import { useApp } from '@/components/AppContext'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from "@/components/ui/select"
 import axios from "axios";
+import { useToast } from "@/hooks/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
 const CreateButton = () => {
   const [title, setTitle] = useState('')
@@ -33,6 +35,8 @@ const CreateButton = () => {
   const [isCreating, setIsCreating] = useState(false)
   const [license, setLicense] = useState<PIL_TYPE>(PIL_TYPE.NON_COMMERCIAL_REMIX)
   const { data: wallet } = useWalletClient()
+
+  const { toast } = useToast()
 
   const { client } = useApp()
 
@@ -82,6 +86,20 @@ const CreateButton = () => {
       console.log(
         `Root IPA created at transaction hash ${registeredIpAsset.txHash}, IPA ID: ${registeredIpAsset.ipId}, License Terms ID: ${registeredIpAsset.licenseTermsId}`
       );
+      toast({
+        title: 'Review Created',
+        description: `Transaction hash: ${registeredIpAsset.txHash}, IPA ID: ${registeredIpAsset.ipId}`,
+        action: (
+          <ToastAction
+            onClick={() => {
+              navigator.clipboard.writeText(`${registeredIpAsset.ipId}`)
+            }}
+            altText="Goto schedule to undo"
+          >
+            Copy IPA
+          </ToastAction>
+        )
+      })
 
       // record the review
       const res = await axios.post('/api/add-review', {
