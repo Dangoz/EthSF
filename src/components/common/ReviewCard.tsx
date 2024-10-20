@@ -6,14 +6,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { CirclePlus, Heart, MessageCircle, ThumbsDown } from "lucide-react"
+import { CircleCheck, CirclePlus, Heart, MessageCircle, ThumbsDown } from "lucide-react"
 import { MouseEvent, MouseEventHandler } from "react";
 
 
-export const ReviewCard = (props: {title: string, description: string, imageUrl: string, onAdd: () => void}) => {
+export const ReviewCard = (props: {title: string, description: string, imageUrl: string, isAdded: boolean, onAdd: (added: boolean) => void}) => {
   const handelDislike: MouseEventHandler<HTMLDivElement>  = (e) => {console.log(`Disiked ${props.title}`); e.stopPropagation()}
   const handelLike: MouseEventHandler<HTMLDivElement> = (e) => {console.log(`Liked ${props.title}`); e.stopPropagation()}
-  const handelAdd: MouseEventHandler<HTMLDivElement> = (e) => {props.onAdd(); e.stopPropagation()}
+  const handelAdd: MouseEventHandler<HTMLDivElement> = (e) => {props.onAdd(!props.isAdded); e.stopPropagation()}
 
   const handelClick = () => console.log(`Clicked ${props.title}`)
   return (
@@ -44,7 +44,7 @@ export const ReviewCard = (props: {title: string, description: string, imageUrl:
         </div>
         
         <div onClick={handelAdd} className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:scale-105">
-          <CirclePlus className="w-6 h-6 text-gray-700" />
+          {props.isAdded ? <CircleCheck className="w-6 h-6 text-gray-700" /> : <CirclePlus className="w-6 h-6 text-gray-700" />}
         </div>
 
       </>

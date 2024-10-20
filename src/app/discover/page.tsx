@@ -7,6 +7,7 @@ import { Wrapper } from '@/components/common/Wrapper';
 import React, { useEffect, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { dummyLocationReviewData } from './dummyLocationReviewData';
+import axios from 'axios';
 
 
 const Hero = () => <div className="flex flex-col items-center justify-center gap-8 p-16 md:p-24 lg:p-36 bg-gradient-to-r from-blue-50 to-white text-center">
@@ -21,15 +22,32 @@ const Hero = () => <div className="flex flex-col items-center justify-center gap
 </button>
 </div>
 
+type Review = {
+  id: string;
+  title: string;
+  description: string;
+  license: string;
+  ipfsUrl: string | null;
+  guideId: string;
+}
+
 const page = () => {
   const [searchSelect, onChangeSearchSelect] = useState("foodanddrink")
   const [searchText, onChangeSearchText] = useState('')
 
-  const [shownReviews, setShownReviews] = useState(dummyLocationReviewData)
+  const [allReviews, setAllReviews] = useState<Review[]>([])
+  const [shownReviews, setShownReviews] = useState<Review[]>([])
+
+  const [selectedReviews, setSelectedReviews] = useState<string[]>([])
 
   useEffect(() => {
-    setShownReviews(dummyLocationReviewData.filter(card => searchText === '' ? true : card.title.includes(searchText) || card.description.includes(searchText)))
-  }, [searchText])
+    axios.get("/api/get-reviews").then((res) => setAllReviews(res.data))
+  }, [])
+
+
+  useEffect(() => {
+    setShownReviews(allReviews.filter(card => searchText === '' ? true : card.title.includes(searchText) || card.description.includes(searchText)))
+  }, [searchText, allReviews])
 
   return (
 
@@ -44,7 +62,7 @@ const page = () => {
     
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {
-        shownReviews.map((card, index) => <ReviewCard key={index}  {...card}/>)
+        shownReviews.map((card, index) => <ReviewCard key={index}  {...card} imageUrl={card.ipfsUrl ?? ""} isAdded={allReviews.map(review => review.id).includes(card.id)} onAdd={(added: boolean) => setSelectedReviews([...selectedReviews, card.id])}/>)
       }
     </div>
     
