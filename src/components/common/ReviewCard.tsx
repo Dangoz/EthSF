@@ -15,9 +15,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { SelectGuide } from "./SelectGuide";
+import { Guide } from "@prisma/client";
 
 
-export const ReviewCard = (props: {title: string, description: string, imageUrl: string, isAdded: boolean, onAdd: (added: boolean) => void}) => {
+export const ReviewCard = (props: {guides: Guide[], title: string, description: string, imageUrl: string, isAdded: boolean, onAdd: (added: boolean) => void}) => {
   const handelDislike: MouseEventHandler<HTMLDivElement>  = (e) => {console.log(`Disiked ${props.title}`); e.stopPropagation()}
   const handelLike: MouseEventHandler<HTMLDivElement> = (e) => {console.log(`Liked ${props.title}`); e.stopPropagation()}
   const handelAdd: MouseEventHandler<HTMLDivElement> = (e) => {props.onAdd(!props.isAdded); e.stopPropagation()}
@@ -50,7 +51,7 @@ export const ReviewCard = (props: {title: string, description: string, imageUrl:
           <Heart className="w-6 h-6 text-red-500" />
         </div>
         
-          <SelectGuide/>
+          <SelectGuide guides={props.guides}/>
         
       </>
       </CardFooter>

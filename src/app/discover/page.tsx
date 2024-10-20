@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { dummyLocationReviewData } from './dummyLocationReviewData';
 import axios from 'axios';
+import { Guide } from '@prisma/client';
 
 
 const Hero = () => <div className="flex flex-col items-center justify-center gap-8 p-16 md:p-24 lg:p-36 bg-gradient-to-r from-blue-50 to-white text-center">
@@ -41,13 +42,22 @@ const page = () => {
   const [selectedReviews, setSelectedReviews] = useState<string[]>([])
 
   useEffect(() => {
+    console.log("HELLO4")
+    axios.get("/api/get-guide").then((res) => setGuides(res.data))
     axios.get("/api/get-reviews").then((res) => setAllReviews(res.data))
   }, [])
 
 
   useEffect(() => {
+    console.log("HELLO1")
     setShownReviews(allReviews.filter(card => searchText === '' ? true : card.title.includes(searchText) || card.description.includes(searchText)))
   }, [searchText, allReviews])
+
+  const [guides, setGuides] = useState<Guide[]>([])
+
+  useEffect(() => {
+    console.log("HELLO2")
+  }, [])
 
   return (
 

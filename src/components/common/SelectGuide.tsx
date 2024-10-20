@@ -18,33 +18,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { Guide } from "@prisma/client"
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-]
 
-export function SelectGuide() {
+export function SelectGuide(props: {guides: Guide[]}) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
+
+  const frameworks = props.guides.map(guide => ({ value: guide.ipAssetId, label: guide.title }))
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
