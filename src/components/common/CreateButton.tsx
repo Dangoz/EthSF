@@ -70,7 +70,7 @@ const CreateButton = () => {
     const registeredIpAsset =
       await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
         nftContract: process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as Address,
-        pilType: PIL_TYPE.NON_COMMERCIAL_REMIX,
+        pilType: PIL_TYPE.COMMERCIAL_REMIX,
         ipMetadata,
         txOptions: { waitForTransaction: true },
       });
@@ -131,7 +131,7 @@ const CreateButton = () => {
               Close
             </Button>
           </DialogClose>
-          <Button onClick={handleCreateReview} disabled={isCreating || !title || !description}>
+          <Button onClick={handleNFTCreation} disabled={isCreating || !title || !description}>
             {isCreating ? <Loader className="w-4 h-4 animate-spin" /> : 'Create Review'}
           </Button>
         </DialogFooter>
