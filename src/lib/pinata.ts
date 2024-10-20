@@ -23,6 +23,7 @@ export const uploadVideoToIPFS = async (videoBlob: Blob) => {
 
 // using pinata sdk, upload json to ipfs
 export const uploadJSONToIPFS = async (json: any) => {
+  console.log("To Pinta:", json)
   const res = await pinata.upload.json(json);
   return res.cid;
 }
