@@ -14,11 +14,11 @@ datasource db {
 }
 
 model Guide {
-  id        String     @id @default(cuid())
-  name      String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  ipas      GuideIPA[]
+  ipAssetId   String     @id
+  title       String
+  description String?
+  ipfsUrl     String?
+  ipas        GuideIPA[]
 }
 
 model IPA {
@@ -31,7 +31,7 @@ model IPA {
 }
 
 model GuideIPA {
-  guide   Guide  @relation(fields: [guideId], references: [id])
+  guide   Guide  @relation(fields: [guideId], references: [ipAssetId])
   guideId String
   ipa     IPA    @relation(fields: [ipaId], references: [ipAssetId])
   ipaId   String

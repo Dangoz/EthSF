@@ -29,6 +29,6 @@ export const readReviewByIpAssetId = async (ipAssetId: string) => {
 }
 
 export const readAllReviews = async () => {
-  const reviews = await prisma.iPA.findMany()
+  const reviews = await prisma.iPA.findMany({})
   return reviews
 }

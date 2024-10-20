@@ -24,14 +24,14 @@ import { useWalletClient } from 'wagmi'
 import { Address } from 'viem'
 import { generateIpMetadata } from '@/lib/story/generateIpMetadata'
 import { useApp } from '@/components/AppContext'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from "@/components/ui/select"
+import axios from 'axios'
 
 const CreateButton = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [image, setImage] = useState<File | null>(null)
   const [isCreating, setIsCreating] = useState(false)
-  const [license, setLicense] = useState<PIL_TYPE>(PIL_TYPE.NON_COMMERCIAL_REMIX)
+  const [license, setLicense] = useState<PIL_TYPE>(PIL_TYPE.COMMERCIAL_USE)
   const { data: wallet } = useWalletClient()
 
   const { createNFTCollection } = useNftClient();
@@ -40,38 +40,54 @@ const CreateButton = () => {
   const { client } = useApp()
 
   const handleCreateReview = async () => {
-    if (!client) return
+    try {
+      if (!client) return
 
-    setIsCreating(true)
+      setIsCreating(true)
 
-    // if image is present, upload to ipfs
-    console.log(image)
-    let ipfsUrl = ''
-    if (image) {
-      const ipfsHash = await uploadImageToIPFS(image)
-      ipfsUrl = getIPFSUrl(ipfsHash)
-      console.log(ipfsUrl)
+      // if image is present, upload to ipfs
+      console.log(image)
+      let ipfsUrl = ''
+      if (image) {
+        const ipfsHash = await uploadImageToIPFS(image)
+        ipfsUrl = getIPFSUrl(ipfsHash)
+        console.log(ipfsUrl)
+      }
+
+      // generate ip metadata
+      const ipMetadata = await generateIpMetadata(client, ipfsUrl, title, description)
+      console.log('ipMetadata', ipMetadata)
+
+      const registeredIpAsset =
+        await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
+          nftContract: process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as Address,
+          pilType: license,
+          mintingFee: 0,
+          currency: '0x91f6F05B08c16769d3c85867548615d270C42fC7',
+          commercialRevShare: 0,
+          ipMetadata,
+          txOptions: { waitForTransaction: true },
+        });
+      console.log(
+        `Root IPA created at transaction hash ${registeredIpAsset.txHash}, IPA ID: ${registeredIpAsset.ipId}`
+      );
+
+      const response = await axios.post('/api/add-guide', {
+        ipAssetId: registeredIpAsset.ipId,
+        title,
+        description,
+        ipfsUrl
+      })
+
+      setIsCreating(false)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setTitle('')
+      setDescription('')
+      setImage(null)
+      setIsCreating(false)
     }
-
-    // generate ip metadata
-    const ipMetadata = await generateIpMetadata(client, ipfsUrl, title, description)
-    console.log('ipMetadata', ipMetadata)
-
-    const registeredIpAsset =
-      await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
-        nftContract: process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as Address,
-        pilType: license,
-        mintingFee: 0,
-        currency: '0x91f6F05B08c16769d3c85867548615d270C42fC7',
-        commercialRevShare: 0,
-        ipMetadata,
-        txOptions: { waitForTransaction: true },
-      });
-    console.log(
-      `Root IPA created at transaction hash ${registeredIpAsset.txHash}, IPA ID: ${registeredIpAsset.ipId}`
-    );
-
-    setIsCreating(false)
   }
 
   return (<>
@@ -100,26 +116,6 @@ const CreateButton = () => {
           <Input id="title" onChange={(e) => setTitle(e.target.value)} />
         </div>
 
-        {/* License */}
-        {/* <div className="flex flex-col gap-2">
-          <Label htmlFor="license" className="text-sm font-medium">License</Label>
-          <Select
-            onValueChange={(value) => setLicense(value === 'non-commercial-remix' ? PIL_TYPE.NON_COMMERCIAL_REMIX : value === 'commercial-remix' ? PIL_TYPE.COMMERCIAL_REMIX : PIL_TYPE.COMMERCIAL_USE)}
-            defaultValue={'non-commercial-remix'}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select a License" />
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value={'non-commercial-remix'}>Non-Commercial Remix</SelectItem>
-                  <SelectItem value={'commercial-remix'}>Commercial Remix</SelectItem>
-                  <SelectItem value={'commercial-use'}>Commercial Use</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </SelectTrigger>
-          </Select>
-        </div> */}
-
         {/* description */}
         <div className="flex flex-col gap-2">
           <Label htmlFor="description" className="text-sm font-medium">Description</Label>
@@ -133,9 +129,16 @@ const CreateButton = () => {
         </div>
 
         {/* when image is present, preview image */}
-        {image && (
+        {image?.type.includes('image') && (
           <div className="flex flex-col">
             <img src={URL.createObjectURL(image)} alt="preview" className="w-full h-48 object-contain" />
+          </div>
+        )}
+
+        {/* check if image file is a video, if so, preview video */}
+        {image?.type.includes('video') && (
+          <div className="flex flex-col">
+            <video src={URL.createObjectURL(image)} className="w-full h-48 object-contain" autoPlay muted loop playsInline />
           </div>
         )}
 

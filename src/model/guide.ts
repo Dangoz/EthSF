@@ -1,10 +1,20 @@
 import prisma from "./prisma";
 
-export const createGuide = async ({ name }: { name: string }) => {
-  const guide = await prisma.guide.create({
-    data: { name }
+export const createGuide = async (
+  ipAssetId: string,
+  title: string,
+  description: string,
+  ipfsUrl: string
+) => {
+  const newGuide = await prisma.guide.create({
+    data: {
+      ipAssetId,
+      title,
+      description,
+      ipfsUrl
+    }
   })
-  return guide
+  return newGuide
 }
 
 export const readAllGuides = async () => {
