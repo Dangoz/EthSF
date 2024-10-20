@@ -40,19 +40,6 @@ const CreateButton = () => {
 
   const { client } = useApp()
 
-  // const handleRegisterDerivative = async (ipAssetId: `0x${string}`) => {
-  //   const parentIpAssetId = '0x6396Db796b273294cBFF66321559Cf918961A69E'
-  //   const licenseTermsId = '13'
-
-  //   const response = await client?.ipAsset.registerDerivative({
-  //     childIpId: ipAssetId,
-  //     parentIpIds: [parentIpAssetId],
-  //     licenseTermsIds: [licenseTermsId],
-  //     txOptions: { waitForTransaction: true }
-  //   });
-
-  //   console.log(`Derivative IPA linked to parent at transaction hash ${response?.txHash}`)
-  // }
 
   const handleCreateGuide = async () => {
     try {
@@ -211,7 +198,7 @@ const CreateButton = () => {
             </Button>
           </DialogClose>
           <Button onClick={handleCreateGuide} disabled={isCreating || !title || !description}>
-            {isCreating ? <Loader className="w-4 h-4 animate-spin" /> : 'Select Reviews'}
+            {isCreating ? <Loader className="w-4 h-4 animate-spin" /> : 'Write Reviews'}
           </Button>
         </DialogFooter>
       </DialogContent>
