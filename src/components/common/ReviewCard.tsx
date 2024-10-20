@@ -59,6 +59,18 @@ export const ReviewCard = (props: { guides: Guide[], ipAssetId: `0x${string}`, t
 
   }, [selectedGuide])
 
+
+  // check file type of imageUrl
+  const [fileType, setFileType] = useState<string | null>(null)
+  useEffect(() => {
+    const checkFileType = async () => {
+      const response = await fetch(props.imageUrl)
+      const contentType = response.headers.get('content-type')
+      setFileType(contentType || null)
+    }
+    checkFileType();
+  }, [props.imageUrl])
+
   return (
     <Card onClick={handelClick}>
       <CardHeader>
@@ -66,11 +78,21 @@ export const ReviewCard = (props: { guides: Guide[], ipAssetId: `0x${string}`, t
         <CardDescription>{props.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <img
+        {/* <img
           src="https://via.placeholder.com/300"
           alt={props.title}
           className="w-full h-48 object-cover"
-        />
+        /> */}
+
+        {/* based on file type of imageUrl, if it's image show image preview, if it's video show video preview */}
+        {fileType?.includes('image') && (
+          <img src={props.imageUrl} alt={props.title} className="w-full h-48 object-contain" />
+        )}
+        {fileType?.includes('video') && (
+          <video src={props.imageUrl} className="w-full h-48 object-contain" autoPlay muted loop playsInline />
+        )}
+
+
       </CardContent>
       <CardFooter className="flex justify-around p-4">
         <>
