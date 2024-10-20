@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Providers from "./providers";
 import NavBar from "@/components/common/NavBar";
+import Web3Providers from "@/components/Web3Provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,10 +32,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="w-screen h-fit min-h-[calc(100dvh)]">
-          <Providers>
+          <Web3Providers>
             <NavBar />
             {children}
-          </Providers>
+          </Web3Providers>
         </div>
       </body>
     </html>
