@@ -7,6 +7,7 @@ import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import { PropsWithChildren } from "react";
 import { StoryProvider } from "@story-protocol/react-sdk";
 import { createWalletClient, type Chain } from "viem";
+import AppProvider from "./AppContext";
 
 export const iliad = {
   id: 1513, // Your custom chain ID
@@ -70,7 +71,9 @@ export default function Web3Providers({ children }: PropsWithChildren<{}>) {
         <QueryClientProvider client={queryClient}>
           <DynamicWagmiConnector>
             <StoryProviderWrapper>
-              {children}
+              <AppProvider>
+                {children}
+              </AppProvider>
             </StoryProviderWrapper>
           </DynamicWagmiConnector>
         </QueryClientProvider>
