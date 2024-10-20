@@ -21,6 +21,7 @@ import { Loader } from "lucide-react"
 import { uploadImageToIPFS, uploadJSONToIPFS, getIPFSUrl } from '@/lib/pinata'
 import { useIpAsset, useNftClient, PIL_TYPE } from "@story-protocol/react-sdk";
 import { useWalletClient } from 'wagmi'
+import { toHex } from 'viem'
 
 
 const CreateButton = () => {
@@ -32,6 +33,8 @@ const CreateButton = () => {
   const { data: wallet } = useWalletClient()
 
   const { createNFTCollection } = useNftClient();
+  const { register } = useIpAsset();
+
 
   const handleCreateReview = async () => {
     setIsCreating(true)
@@ -48,12 +51,13 @@ const CreateButton = () => {
     // check account status
     console.log('status', wallet?.account.address, wallet?.getAddresses())
 
-    const newCollection = await createNFTCollection({
-      name: 'EAT EPICURE',
-      symbol: 'EPICURE',
-      txOptions: { waitForTransaction: true }
-    });
-    console.log(JSON.stringify(newCollection, null, 2))
+    // const newCollection = await createNFTCollection({
+    //   name: 'EAT EPICURE',
+    //   symbol: 'EPICURE',
+    //   txOptions: { waitForTransaction: true }
+
+    // });
+    // console.log(JSON.stringify(newCollection, null, 2))
 
     setIsCreating(false)
   }
