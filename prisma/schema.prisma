@@ -22,10 +22,10 @@ model Guide {
 }
 
 model IPA {
-  id          String  @id @default(cuid())
+  ipAssetId   String  @id
   title       String
   description String
-  license     String
+  license     String?
   ipfsUrl     String?
 
   guide   Guide  @relation(fields: [guideId], references: [id])

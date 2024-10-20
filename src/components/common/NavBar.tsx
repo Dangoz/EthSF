@@ -4,6 +4,7 @@ import React from 'react'
 import NavMenu from './NavMenu'
 import { DynamicWidget } from '@dynamic-labs/sdk-react-core'
 import CreateButton from './CreateButton'
+import GuideButton from './GuideButton'
 
 const NavBar = () => {
   return (
@@ -14,7 +15,10 @@ const NavBar = () => {
         </div>
         <DynamicWidget />
       </div>
-      <CreateButton />
+      <>
+        <CreateButton />
+        <GuideButton />
+      </>
     </>
   )
 }
