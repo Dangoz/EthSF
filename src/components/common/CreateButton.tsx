@@ -19,6 +19,9 @@ import { Copy } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { Loader } from "lucide-react"
 import { uploadImageToIPFS, uploadJSONToIPFS, getIPFSUrl } from '@/lib/pinata'
+import { useIpAsset, useNftClient, PIL_TYPE } from "@story-protocol/react-sdk";
+import { useWalletClient } from 'wagmi'
+
 
 const CreateButton = () => {
   const [title, setTitle] = useState('')
@@ -26,17 +29,31 @@ const CreateButton = () => {
   const [image, setImage] = useState<File | null>(null)
   const [isCreating, setIsCreating] = useState(false)
 
+  const { data: wallet } = useWalletClient()
+
+  const { createNFTCollection } = useNftClient();
+
   const handleCreateReview = async () => {
     setIsCreating(true)
 
     // if image is present, upload to ipfs
-    console.log(image)
-    let ipfsUrl = null
-    if (image) {
-      const cid = await uploadImageToIPFS(image)
-      ipfsUrl = getIPFSUrl(cid)
-      console.log(ipfsUrl)
-    }
+    // console.log(image)
+    // let ipfsUrl = null
+    // if (image) {
+    //   const cid = await uploadImageToIPFS(image)
+    //   ipfsUrl = getIPFSUrl(cid)
+    //   console.log(ipfsUrl)
+    // }
+
+    // check account status
+    console.log('status', wallet?.account.address, wallet?.getAddresses())
+
+    const newCollection = await createNFTCollection({
+      name: 'EAT EPICURE',
+      symbol: 'EPICURE',
+      txOptions: { waitForTransaction: true }
+    });
+    console.log(JSON.stringify(newCollection, null, 2))
 
     setIsCreating(false)
   }

@@ -12,7 +12,7 @@ const NavBar = () => {
         <div className="">
           <NavMenu />
         </div>
-        {/* <DynamicWidget /> */}
+        <DynamicWidget />
       </div>
       <CreateButton />
     </>
