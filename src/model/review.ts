@@ -20,3 +20,15 @@ export const addReview = async ({
   })
   return review
 }
+
+export const readReviewByIpAssetId = async (ipAssetId: string) => {
+  const review = await prisma.iPA.findUnique({
+    where: { ipAssetId }
+  })
+  return review
+}
+
+export const readAllReviews = async () => {
+  const reviews = await prisma.iPA.findMany()
+  return reviews
+}
