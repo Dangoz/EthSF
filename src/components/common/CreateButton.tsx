@@ -61,6 +61,9 @@ const CreateButton = () => {
       await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
         nftContract: process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as Address,
         pilType: license,
+        mintingFee: 0,
+        currency: '0xB132A6B7AE652c974EE1557A3521D53d18F6739f',
+        commercialRevShare: 0,
         ipMetadata,
         txOptions: { waitForTransaction: true },
       });
@@ -99,17 +102,17 @@ const CreateButton = () => {
         {/* License */}
         <div className="flex flex-col gap-2">
           <Label htmlFor="license" className="text-sm font-medium">License</Label>
-          <Select onValueChange={(value) => setLicense(value)}>
+          <Select
+            onValueChange={(value) => setLicense(value === 'non-commercial-remix' ? PIL_TYPE.NON_COMMERCIAL_REMIX : value === 'commercial-remix' ? PIL_TYPE.COMMERCIAL_REMIX : PIL_TYPE.COMMERCIAL_USE)}
+            defaultValue={'non-commercial-remix'}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select a License" />
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Fruits</SelectLabel>
-                  <SelectItem value="apple">Apple</SelectItem>
-                  <SelectItem value="banana">Banana</SelectItem>
-                  <SelectItem value="blueberry">Blueberry</SelectItem>
-                  <SelectItem value="grapes">Grapes</SelectItem>
-                  <SelectItem value="pineapple">Pineapple</SelectItem>
+                  <SelectItem value={'non-commercial-remix'}>Non-Commercial Remix</SelectItem>
+                  <SelectItem value={'commercial-remix'}>Commercial Remix</SelectItem>
+                  <SelectItem value={'commercial-use'}>Commercial Use</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </SelectTrigger>
