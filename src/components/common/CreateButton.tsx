@@ -175,9 +175,16 @@ const CreateButton = () => {
         </div>
 
         {/* when image is present, preview image */}
-        {image && (
+        {image?.type.includes('image') && (
           <div className="flex flex-col">
             <img src={URL.createObjectURL(image)} alt="preview" className="w-full h-48 object-contain" />
+          </div>
+        )}
+
+        {/* check if image file is a video, if so, preview video */}
+        {image?.type.includes('video') && (
+          <div className="flex flex-col">
+            <video src={URL.createObjectURL(image)} className="w-full h-48 object-contain" autoPlay muted loop playsInline />
           </div>
         )}
 
