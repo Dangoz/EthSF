@@ -12,3 +12,22 @@ datasource db {
   provider = "postgresql"
   url      = env("POSTGRES_URL")
 }
+
+model Guide {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipas      IPA[]
+}
+
+model IPA {
+  id          String  @id @default(cuid())
+  title       String
+  description String
+  license     String
+  ipfsUrl     String?
+
+  guide   Guide  @relation(fields: [guideId], references: [id])
+  guideId String
+}

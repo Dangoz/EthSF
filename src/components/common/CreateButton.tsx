@@ -24,13 +24,14 @@ import { useWalletClient } from 'wagmi'
 import { Address } from 'viem'
 import { generateIpMetadata } from '@/lib/story/generateIpMetadata'
 import { useApp } from '@/components/AppContext'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from "@/components/ui/select"
 
 const CreateButton = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [image, setImage] = useState<File | null>(null)
   const [isCreating, setIsCreating] = useState(false)
-
+  const [license, setLicense] = useState<PIL_TYPE>(PIL_TYPE.NON_COMMERCIAL_REMIX)
   const { data: wallet } = useWalletClient()
 
   const { createNFTCollection } = useNftClient();
@@ -59,7 +60,7 @@ const CreateButton = () => {
     const registeredIpAsset =
       await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
         nftContract: process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as Address,
-        pilType: PIL_TYPE.COMMERCIAL_REMIX,
+        pilType: license,
         ipMetadata,
         txOptions: { waitForTransaction: true },
       });
@@ -93,6 +94,26 @@ const CreateButton = () => {
         <div className="flex flex-col gap-2">
           <Label htmlFor="title" className="text-sm font-medium">Title</Label>
           <Input id="title" onChange={(e) => setTitle(e.target.value)} />
+        </div>
+
+        {/* License */}
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="license" className="text-sm font-medium">License</Label>
+          <Select onValueChange={(value) => setLicense(value)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select a License" />
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Fruits</SelectLabel>
+                  <SelectItem value="apple">Apple</SelectItem>
+                  <SelectItem value="banana">Banana</SelectItem>
+                  <SelectItem value="blueberry">Blueberry</SelectItem>
+                  <SelectItem value="grapes">Grapes</SelectItem>
+                  <SelectItem value="pineapple">Pineapple</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </SelectTrigger>
+          </Select>
         </div>
 
         {/* description */}
