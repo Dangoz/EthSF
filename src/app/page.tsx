@@ -4,7 +4,6 @@ import Image from "next/image";
 import Test from "@/components/story/Test";
 import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
 import axios from "axios";
-// import { ReviewCard } from "@/components/common/ReviewCard";
 import { useState, useEffect } from "react"
 import type { Guide } from "@prisma/client"
 import GuideCard from "@/components/common/GuideCard";
