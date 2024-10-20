@@ -12,6 +12,7 @@
     "@dynamic-labs/ethereum": "^3.4.2",
     "@dynamic-labs/sdk-react-core": "^3.4.2",
     "@dynamic-labs/wagmi-connector": "^3.4.2",
+    "@prisma/client": "5.21.1",
     "@pinata/sdk": "^2.1.0",
     "@prisma/client": "5.21.1",
     "@radix-ui/react-dialog": "^1.1.2",
