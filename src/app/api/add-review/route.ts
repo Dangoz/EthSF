@@ -1,20 +1,20 @@
 import { uploadImageToIPFS } from "@/lib/pinata"
 import { NextRequest, NextResponse } from "next/server";
-import sharp from "sharp";
+import prisma from "@/lib/prisma";
 
 export const POST = async (req: NextRequest) => {
   try {
     // assuming image of type file is present in request
-    
+
     // TODO Get Reviews here
 
 
-/*    pri
-    req.body
-
-
-    return NextResponse.json()
-    */
+    /*    pri
+        req.body
+    
+    
+        return NextResponse.json()
+        */
 
   } catch (error) {
     console.log(error)
