@@ -72,7 +72,7 @@ const page = () => {
     
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {
-        shownReviews.map((card, index) => <ReviewCard key={index}  {...card} imageUrl={card.ipfsUrl ?? ""} isAdded={allReviews.map(review => review.id).includes(card.id)} onAdd={(added: boolean) => setSelectedReviews([...selectedReviews, card.id])}/>)
+        shownReviews.map((card, index) => <ReviewCard guides={guides} key={index}  {...card} imageUrl={card.ipfsUrl ?? ""} isAdded={allReviews.map(review => review.id).includes(card.id)} onAdd={(added: boolean) => setSelectedReviews([...selectedReviews, card.id])}/>)
       }
     </div>
     
