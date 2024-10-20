@@ -19,7 +19,7 @@ import { Copy } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { Loader } from "lucide-react"
 import { uploadImageToIPFS, uploadJSONToIPFS, getIPFSUrl } from '@/lib/pinata'
-import { useIpAsset, useNftClient, PIL_TYPE } from "@story-protocol/react-sdk";
+import { PIL_TYPE } from "@story-protocol/react-sdk";
 import { useWalletClient } from 'wagmi'
 import { Address } from 'viem'
 import { generateIpMetadata } from '@/lib/story/generateIpMetadata'
@@ -36,44 +36,67 @@ const CreateButton = () => {
   const [license, setLicense] = useState<PIL_TYPE>(PIL_TYPE.NON_COMMERCIAL_REMIX)
   const { data: wallet } = useWalletClient()
 
-  const { createNFTCollection } = useNftClient();
-  const { register } = useIpAsset();
-
   const { client } = useApp()
 
+  // const handleRegisterDerivative = async (ipAssetId: `0x${string}`) => {
+  //   const parentIpAssetId = '0x6396Db796b273294cBFF66321559Cf918961A69E'
+  //   const licenseTermsId = '13'
+
+  //   const response = await client?.ipAsset.registerDerivative({
+  //     childIpId: ipAssetId,
+  //     parentIpIds: [parentIpAssetId],
+  //     licenseTermsIds: [licenseTermsId],
+  //     txOptions: { waitForTransaction: true }
+  //   });
+
+  //   console.log(`Derivative IPA linked to parent at transaction hash ${response?.txHash}`)
+  // }
+
   const handleCreateReview = async () => {
-    if (!client) return
+    try {
+      if (!client) return
 
-    setIsCreating(true)
+      setIsCreating(true)
 
-    // if image is present, upload to ipfs
-    console.log(image)
-    let ipfsUrl = ''
-    if (image) {
-      const ipfsHash = await uploadImageToIPFS(image)
-      ipfsUrl = getIPFSUrl(ipfsHash)
-      console.log(ipfsUrl)
+      // if image is present, upload to ipfs
+      console.log(image)
+      let ipfsUrl = ''
+      if (image) {
+        const ipfsHash = await uploadImageToIPFS(image)
+        ipfsUrl = getIPFSUrl(ipfsHash)
+        console.log(ipfsUrl)
+      }
+
+      // generate ip metadata
+      const ipMetadata = await generateIpMetadata(client, ipfsUrl, title, description)
+      console.log('ipMetadata', ipMetadata)
+
+      const registeredIpAsset =
+        await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
+          nftContract: process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as Address,
+          pilType: license,
+          mintingFee: 0,
+          currency: '0x91f6F05B08c16769d3c85867548615d270C42fC7',
+          commercialRevShare: 0,
+          ipMetadata,
+          txOptions: { waitForTransaction: true },
+        });
+      console.log(
+        `Root IPA created at transaction hash ${registeredIpAsset.txHash}, IPA ID: ${registeredIpAsset.ipId}, License Terms ID: ${registeredIpAsset.licenseTermsId}`
+      );
+
+      if (registeredIpAsset.ipId) {
+        // await handleRegisterDerivative(registeredIpAsset.ipId)
+      }
+
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setTitle('')
+      setDescription('')
+      setImage(null)
+      setIsCreating(false)
     }
-
-    // generate ip metadata
-    const ipMetadata = await generateIpMetadata(client, ipfsUrl, title, description)
-    console.log('ipMetadata', ipMetadata)
-
-    const registeredIpAsset =
-      await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
-        nftContract: process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as Address,
-        pilType: license,
-        mintingFee: 0,
-        currency: '0x91f6F05B08c16769d3c85867548615d270C42fC7',
-        commercialRevShare: 0,
-        ipMetadata,
-        txOptions: { waitForTransaction: true },
-      });
-    console.log(
-      `Root IPA created at transaction hash ${registeredIpAsset.txHash}, IPA ID: ${registeredIpAsset.ipId}`
-    );
-
-    setIsCreating(false)
   }
 
   const sendToDatabase = async () => {
@@ -97,7 +120,7 @@ const CreateButton = () => {
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Write Review</DialogTitle>
+          <DialogTitle>Write Reviewwwwwssss</DialogTitle>
           <DialogDescription>
 
           </DialogDescription>
