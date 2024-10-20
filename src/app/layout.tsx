@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "./providers";
 import NavBar from "@/components/common/NavBar";
 import Web3Providers from "@/components/Web3Provider";
+import { Toaster } from "@/components/ui/toaster"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,6 +36,7 @@ export default function RootLayout({
           <Web3Providers>
             <NavBar />
             {children}
+            <Toaster />
           </Web3Providers>
         </div>
       </body>

@@ -25,6 +25,8 @@ import { Address } from 'viem'
 import { generateIpMetadata } from '@/lib/story/generateIpMetadata'
 import { useApp } from '@/components/AppContext'
 import axios from 'axios'
+import { useToast } from "@/hooks/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
 const CreateButton = () => {
   const [title, setTitle] = useState('')
@@ -33,7 +35,7 @@ const CreateButton = () => {
   const [isCreating, setIsCreating] = useState(false)
   const [license, setLicense] = useState<PIL_TYPE>(PIL_TYPE.COMMERCIAL_USE)
   const { data: wallet } = useWalletClient()
-
+  const { toast } = useToast()
   const { createNFTCollection } = useNftClient();
   const { register } = useIpAsset();
 
@@ -71,6 +73,20 @@ const CreateButton = () => {
       console.log(
         `Root IPA created at transaction hash ${registeredIpAsset.txHash}, IPA ID: ${registeredIpAsset.ipId}`
       );
+      toast({
+        title: 'Guide Created',
+        description: `Transaction hash: ${registeredIpAsset.txHash}, IPA ID: ${registeredIpAsset.ipId}`,
+        action: (
+          <ToastAction
+            onClick={() => {
+              navigator.clipboard.writeText(`${registeredIpAsset.ipId}`)
+            }}
+            altText="Goto schedule to undo"
+          >
+            Copy IPA
+          </ToastAction>
+        )
+      })
 
       const response = await axios.post('/api/add-guide', {
         ipAssetId: registeredIpAsset.ipId,
