@@ -26,6 +26,8 @@ import { generateIpMetadata } from '@/lib/story/generateIpMetadata'
 import { useApp } from '@/components/AppContext'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from "@/components/ui/select"
 
+import axios from "axios";
+
 const CreateButton = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -72,6 +74,15 @@ const CreateButton = () => {
     );
 
     setIsCreating(false)
+  }
+
+  const sendToDatabase = async () => {
+    axios.post("/add-review", {
+      title,
+      description,
+      image,
+      license,
+    })
   }
 
   return (<>
@@ -147,6 +158,12 @@ const CreateButton = () => {
           <Button onClick={handleCreateReview} disabled={isCreating || !title || !description}>
             {isCreating ? <Loader className="w-4 h-4 animate-spin" /> : 'Create Review'}
           </Button>
+          <Button onClick={handleCreateReview} disabled={isCreating || !title || !description}>
+            {isCreating ? <Loader className="w-4 h-4 animate-spin" /> : 'Masons Button'}
+          </Button>
+
+          
+
         </DialogFooter>
       </DialogContent>
     </Dialog>
