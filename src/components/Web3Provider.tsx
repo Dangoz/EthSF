@@ -31,7 +31,7 @@ const config = createConfig({
   chains: [iliad],
   multiInjectedProviderDiscovery: false,
   transports: {
-    [iliad.id]: http(),
+    [iliad.id]: http("https://testnet.storyrpc.io"),
   },
 });
 const queryClient = new QueryClient();
@@ -59,7 +59,7 @@ export default function Web3Providers({ children }: PropsWithChildren<{}>) {
     // setup dynamic
     <DynamicContextProvider
       settings={{
-        appName: "Story Documentation",
+        appName: "Epicure",
         // Find your environment id at https://app.dynamic.xyz/dashboard/developer
         environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ENV_ID as string,
         walletConnectors: [EthereumWalletConnectors],
@@ -69,13 +69,13 @@ export default function Web3Providers({ children }: PropsWithChildren<{}>) {
     >
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <DynamicWagmiConnector>
-            <StoryProviderWrapper>
-              <AppProvider>
+          <AppProvider>
+            <DynamicWagmiConnector>
+              <StoryProviderWrapper>
                 {children}
-              </AppProvider>
-            </StoryProviderWrapper>
-          </DynamicWagmiConnector>
+              </StoryProviderWrapper>
+            </DynamicWagmiConnector>
+          </AppProvider>
         </QueryClientProvider>
       </WagmiProvider>
     </DynamicContextProvider>

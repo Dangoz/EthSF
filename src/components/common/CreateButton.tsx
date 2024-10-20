@@ -70,7 +70,7 @@ const CreateButton = () => {
     const registeredIpAsset =
       await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
         nftContract: process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as Address,
-        pilType: PIL_TYPE.COMMERCIAL_REMIX,
+        pilType: PIL_TYPE.NON_COMMERCIAL_REMIX,
         ipMetadata,
         txOptions: { waitForTransaction: true },
       });
