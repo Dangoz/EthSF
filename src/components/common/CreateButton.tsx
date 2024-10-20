@@ -48,8 +48,8 @@ const CreateButton = () => {
     console.log(image)
     let ipfsUrl = ''
     if (image) {
-      const cid = await uploadImageToIPFS(image)
-      ipfsUrl = getIPFSUrl(cid)
+      const ipfsHash = await uploadImageToIPFS(image)
+      ipfsUrl = getIPFSUrl(ipfsHash)
       console.log(ipfsUrl)
     }
 
