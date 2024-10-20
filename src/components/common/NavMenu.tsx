@@ -4,6 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
+import Image from 'next/image'
 
 import {
   Menubar,
@@ -52,7 +53,8 @@ const NavMenu = () => {
   const pathname = usePathname()
 
   return (
-    <>
+    <div className="flex items-start gap-2">
+      <Image src="/logo.png" alt="logo" width={50} height={50} />
       <nav className={cn(
         "bg-black px-2 py-2 rounded-sm gap-4 flex",
         "shadow-[rgba(111,109,120,0.1)_0px_0px_30px,rgba(60,57,63,0.4)_0px_0px_0px_1px]"
@@ -78,7 +80,7 @@ const NavMenu = () => {
           </Link>
         </div>
       </nav>
-    </>
+    </div>
   )
 }
 
