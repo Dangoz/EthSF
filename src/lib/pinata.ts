@@ -18,11 +18,11 @@ export const uploadImageToIPFS = async (imageBlob: Blob) => {
 export const uploadVideoToIPFS = async (videoBlob: Blob) => {
   const file = new File([videoBlob], "video.mp4", { type: "video/mp4" });
   const res = await pinata.upload.file(file);
-  return res;
+  return res.cid;
 }
 
 // using pinata sdk, upload json to ipfs
 export const uploadJSONToIPFS = async (json: any) => {
   const res = await pinata.upload.json(json);
-  return res;
+  return res.cid;
 }

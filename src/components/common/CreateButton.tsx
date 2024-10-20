@@ -21,8 +21,9 @@ import { Loader } from "lucide-react"
 import { uploadImageToIPFS, uploadJSONToIPFS, getIPFSUrl } from '@/lib/pinata'
 import { useIpAsset, useNftClient, PIL_TYPE } from "@story-protocol/react-sdk";
 import { useWalletClient } from 'wagmi'
-import { toHex } from 'viem'
-
+import { Address } from 'viem'
+import { generateIpMetadata } from '@/lib/story/generateIpMetadata'
+import { useApp } from '@/components/AppContext'
 
 const CreateButton = () => {
   const [title, setTitle] = useState('')
@@ -35,29 +36,47 @@ const CreateButton = () => {
   const { createNFTCollection } = useNftClient();
   const { register } = useIpAsset();
 
+  const { client } = useApp()
+
+  // manually create nft collection
+  const handleNFTCreation = async () => {
+    const newCollection = await createNFTCollection({
+      name: 'EAT EPICURE',
+      symbol: 'EPICURE',
+      txOptions: { waitForTransaction: true }
+
+    });
+    console.log(JSON.stringify(newCollection, null, 2))
+  }
 
   const handleCreateReview = async () => {
+    if (!client) return
+
     setIsCreating(true)
 
     // if image is present, upload to ipfs
-    // console.log(image)
-    // let ipfsUrl = null
-    // if (image) {
-    //   const cid = await uploadImageToIPFS(image)
-    //   ipfsUrl = getIPFSUrl(cid)
-    //   console.log(ipfsUrl)
-    // }
+    console.log(image)
+    let ipfsUrl = ''
+    if (image) {
+      const cid = await uploadImageToIPFS(image)
+      ipfsUrl = getIPFSUrl(cid)
+      console.log(ipfsUrl)
+    }
 
-    // check account status
-    console.log('status', wallet?.account.address, wallet?.getAddresses())
+    // generate ip metadata
+    const ipMetadata = await generateIpMetadata(client, ipfsUrl, title, description)
+    console.log('ipMetadata', ipMetadata)
 
-    // const newCollection = await createNFTCollection({
-    //   name: 'EAT EPICURE',
-    //   symbol: 'EPICURE',
-    //   txOptions: { waitForTransaction: true }
-
-    // });
-    // console.log(JSON.stringify(newCollection, null, 2))
+    const registeredIpAsset =
+      await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
+        nftContract: process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as Address,
+        pilType: PIL_TYPE.NON_COMMERCIAL_REMIX,
+        ipMetadata,
+        txOptions: { waitForTransaction: true },
+      });
+    console.log(
+      `Root IPA created at transaction hash ${registeredIpAsset.txHash}, IPA ID: ${registeredIpAsset.ipId}`
+    );
 
     setIsCreating(false)
   }
