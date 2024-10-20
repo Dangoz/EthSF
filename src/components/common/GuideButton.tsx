@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { PlusIcon } from 'lucide-react'
+import { BookMarked } from 'lucide-react'
 import {
   Dialog,
   DialogClose,
@@ -77,17 +77,17 @@ const CreateButton = () => {
   return (<>
     <Dialog>
       <DialogTrigger asChild>
-      <div className="fixed bottom-10 right-10">
-  <div className="relative cursor-pointer z-10 hover:z-50">
-    <PlusIcon className="w-10 h-10 text-red-500 rounded-full bg-white hover:bg-gray-600 p-2" />
-  </div>
-</div>
+        <div className="fixed bottom-10 right-10">
+          <div className="relative cursor-pointer z-10 hover:z-50">
+            <BookMarked className="w-10 h-10 text-red-500 rounded-full bg-white hover:bg-gray-600 p-2" />
+          </div>
+        </div>
 
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Write Review</DialogTitle>
+          <DialogTitle>Design a Guide</DialogTitle>
           <DialogDescription>
 
           </DialogDescription>
@@ -101,7 +101,7 @@ const CreateButton = () => {
         </div>
 
         {/* License */}
-        <div className="flex flex-col gap-2">
+        {/* <div className="flex flex-col gap-2">
           <Label htmlFor="license" className="text-sm font-medium">License</Label>
           <Select
             onValueChange={(value) => setLicense(value === 'non-commercial-remix' ? PIL_TYPE.NON_COMMERCIAL_REMIX : value === 'commercial-remix' ? PIL_TYPE.COMMERCIAL_REMIX : PIL_TYPE.COMMERCIAL_USE)}
@@ -118,7 +118,7 @@ const CreateButton = () => {
               </SelectContent>
             </SelectTrigger>
           </Select>
-        </div>
+        </div> */}
 
         {/* description */}
         <div className="flex flex-col gap-2">

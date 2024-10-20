@@ -15,7 +15,6 @@ import {
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Copy } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { Loader } from "lucide-react"
 import { uploadImageToIPFS, uploadJSONToIPFS, getIPFSUrl } from '@/lib/pinata'
@@ -52,7 +51,7 @@ const CreateButton = () => {
   //   console.log(`Derivative IPA linked to parent at transaction hash ${response?.txHash}`)
   // }
 
-  const handleCreateReview = async () => {
+  const handleCreateGuide = async () => {
     try {
       if (!client) return
 
@@ -122,14 +121,14 @@ const CreateButton = () => {
     <Dialog>
 
       <DialogTrigger asChild>
-        <div className="fixed bottom-10 right-10 cursor-pointer">
+        <div className="fixed bottom-28 right-10 cursor-pointer">
           <PlusIcon className="w-10 h-10 text-red-500 rounded-full bg-white hover:bg-gray-600 p-2" />
         </div>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Write Reviewwwwwssss</DialogTitle>
+          <DialogTitle>Write Guide</DialogTitle>
           <DialogDescription>
 
           </DialogDescription>
@@ -194,15 +193,9 @@ const CreateButton = () => {
               Close
             </Button>
           </DialogClose>
-          <Button onClick={handleCreateReview} disabled={isCreating || !title || !description}>
-            {isCreating ? <Loader className="w-4 h-4 animate-spin" /> : 'Create Review'}
+          <Button onClick={handleCreateGuide} disabled={isCreating || !title || !description}>
+            {isCreating ? <Loader className="w-4 h-4 animate-spin" /> : 'Select Reviews'}
           </Button>
-          <Button onClick={handleCreateReview} disabled={isCreating || !title || !description}>
-            {isCreating ? <Loader className="w-4 h-4 animate-spin" /> : 'Masons Button'}
-          </Button>
-
-
-
         </DialogFooter>
       </DialogContent>
     </Dialog>
