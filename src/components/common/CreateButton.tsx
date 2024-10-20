@@ -38,17 +38,6 @@ const CreateButton = () => {
 
   const { client } = useApp()
 
-  // manually create nft collection
-  const handleNFTCreation = async () => {
-    const newCollection = await createNFTCollection({
-      name: 'EAT EPICURE',
-      symbol: 'EPICURE',
-      txOptions: { waitForTransaction: true }
-
-    });
-    console.log(JSON.stringify(newCollection, null, 2))
-  }
-
   const handleCreateReview = async () => {
     if (!client) return
 
@@ -70,7 +59,7 @@ const CreateButton = () => {
     const registeredIpAsset =
       await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
         nftContract: process.env.NEXT_PUBLIC_NFT_CONTRACT_ADDRESS as Address,
-        pilType: PIL_TYPE.NON_COMMERCIAL_REMIX,
+        pilType: PIL_TYPE.COMMERCIAL_REMIX,
         ipMetadata,
         txOptions: { waitForTransaction: true },
       });
