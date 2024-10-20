@@ -20,6 +20,14 @@ const Hero = () =>
       <br />
       Discover new places, savor unique flavors, and connect with fellow travelers.
     </p>
+    {/* powered by Story and Dynamic */}
+    <div className="flex gap-4 items-center">
+      <div className="text-white font-bold text-lg">
+        Powered by
+      </div>
+      <Image src="/Story_Black.png" alt="Story" width={100} height={100} className="bg-white p-2 rounded-sm w-[120px] h-[40px]" />
+      <Image src="/dynamic_ogo-primary.png" alt="Dynamic" width={100} height={100} className="bg-white p-2 rounded-sm w-[120px] h-[40px]" />
+    </div>
   </div>
 
 export default function Home() {
