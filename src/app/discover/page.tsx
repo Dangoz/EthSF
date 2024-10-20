@@ -38,7 +38,7 @@ const page = () => {
   const [allReviews, setAllReviews] = useState<Review[]>([])
   const [shownReviews, setShownReviews] = useState<Review[]>([])
 
-  const [selectedReviews, setSelectedReviews] = useState(dummyLocationReviewData)
+  const [selectedReviews, setSelectedReviews] = useState<string[]>([])
 
   useEffect(() => {
     axios.get("/api/get-reviews").then((res) => setAllReviews(res.data))
@@ -62,7 +62,7 @@ const page = () => {
     
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {
-        shownReviews.map((card, index) => <ReviewCard key={index}  {...card} isAdded={allReviews.includes(card.id)} onAdd={(added: boolean) => setSelectedReviews([...selectedReviews, card.id])}/>)
+        shownReviews.map((card, index) => <ReviewCard key={index}  {...card} imageUrl={card.ipfsUrl ?? ""} isAdded={allReviews.map(review => review.id).includes(card.id)} onAdd={(added: boolean) => setSelectedReviews([...selectedReviews, card.id])}/>)
       }
     </div>
     
