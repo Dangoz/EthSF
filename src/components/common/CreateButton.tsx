@@ -27,8 +27,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGr
 import axios from "axios";
 import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
+import { cn } from '@/lib/utils'
+import { usePathname } from 'next/navigation'
 
-const CreateButton = () => {
+export const CreateButton = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [image, setImage] = useState<File | null>(null)
@@ -120,13 +122,24 @@ const CreateButton = () => {
     })
   }
 
+  const pathname = usePathname()
   return (<>
 
     <Dialog>
 
       <DialogTrigger asChild>
+        {/*
         <div className="fixed bottom-28 right-10 cursor-pointer">
           <PlusIcon className="w-10 h-10 text-red-500 rounded-full bg-white hover:bg-gray-600 p-2" />
+        </div>
+        */}
+        <div className={cn(
+          "w-[100px] flex justify-center rounded-sm py-1 px-2",
+          pathname === '/discover' && 'bg-slate-900/80 sm'
+        )}>
+          <div  className="text-white hover:text-gray-300 whitespace-nowrap">
+            Create Review
+          </div>
         </div>
       </DialogTrigger>
 

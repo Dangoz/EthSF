@@ -15,6 +15,8 @@ import {
   MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar"
+import CreateButton from './CreateButton'
+import GuideButton from './GuideButton'
 
 const menuItems = [
   { label: 'Home', path: '/' },
@@ -79,6 +81,8 @@ const NavMenu = () => {
             Discover
           </Link>
         </div>
+        <CreateButton />
+        <GuideButton/>
       </nav>
     </div>
   )

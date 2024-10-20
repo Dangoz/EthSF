@@ -16,8 +16,8 @@ const NavBar = () => {
         <DynamicWidget />
       </div>
       <>
-        <CreateButton />
-        <GuideButton />
+        {/*<CreateButton />
+        <GuideButton />*/}
       </>
     </>
   )

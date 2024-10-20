@@ -27,8 +27,10 @@ import { useApp } from '@/components/AppContext'
 import axios from 'axios'
 import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
+import { cn } from '@/lib/utils'
+import { usePathname } from 'next/navigation'
 
-const CreateButton = () => {
+export const GuideButton = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [image, setImage] = useState<File | null>(null)
@@ -41,6 +43,7 @@ const CreateButton = () => {
 
   const { client } = useApp()
 
+  const pathname = usePathname()
   const handleCreateReview = async () => {
     try {
       if (!client) return
@@ -109,12 +112,21 @@ const CreateButton = () => {
   return (<>
     <Dialog>
       <DialogTrigger asChild>
+        {/*
         <div className="fixed bottom-10 right-10">
           <div className="relative cursor-pointer z-10 hover:z-50">
             <BookMarked className="w-10 h-10 text-red-500 rounded-full bg-white hover:bg-gray-600 p-2" />
           </div>
         </div>
-
+        */}
+        <div className={cn(
+          "w-[100px] flex justify-center rounded-sm py-1 px-2",
+          pathname === '/discover' && 'bg-slate-900/80 sm'
+        )}>
+          <div className="text-white hover:text-gray-300 whitespace-nowrap">
+            Curate Guide
+          </div>
+        </div>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">
@@ -174,4 +186,4 @@ const CreateButton = () => {
   )
 }
 
-export default CreateButton
+export default GuideButton
