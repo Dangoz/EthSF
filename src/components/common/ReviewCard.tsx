@@ -6,13 +6,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Heart, ThumbsDown } from "lucide-react"
+import { CirclePlus, Heart, MessageCircle, ThumbsDown } from "lucide-react"
 import { MouseEvent, MouseEventHandler } from "react";
 
 
-export const ReviewCard = (props: {title: string, description: string, imageUrl: string}) => {
+export const ReviewCard = (props: {title: string, description: string, imageUrl: string, onAdd: () => void}) => {
   const handelDislike: MouseEventHandler<HTMLDivElement>  = (e) => {console.log(`Disiked ${props.title}`); e.stopPropagation()}
   const handelLike: MouseEventHandler<HTMLDivElement> = (e) => {console.log(`Liked ${props.title}`); e.stopPropagation()}
+  const handelAdd: MouseEventHandler<HTMLDivElement> = (e) => {props.onAdd(); e.stopPropagation()}
+
   const handelClick = () => console.log(`Clicked ${props.title}`)
   return (
   <Card onClick={handelClick}>
@@ -32,14 +34,18 @@ export const ReviewCard = (props: {title: string, description: string, imageUrl:
         <div onClick={handelDislike} className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:scale-105">
           <ThumbsDown className="w-6 h-6 text-gray-700" />
         </div>
+
+        <div onClick={handelLike} className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:scale-105">
+          <MessageCircle className="w-6 h-6 text-red-500" />
+        </div>
+        
         <div onClick={handelLike} className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:scale-105">
           <Heart className="w-6 h-6 text-red-500" />
         </div>
-        {/*
-        <div onClick={handelDislike} className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:scale-105">
-          <Add className="w-6 h-6 text-gray-700" />
+        
+        <div onClick={handelAdd} className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:scale-105">
+          <CirclePlus className="w-6 h-6 text-gray-700" />
         </div>
-        */}
 
       </>
       </CardFooter>

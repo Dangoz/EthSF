@@ -8,9 +8,8 @@ export const POST = async (req: NextRequest) => {
 
     // TODO Get Reviews here
 
-
     /*    pri
-        req.body
+        addReview(req.body)
     
     
         return NextResponse.json()
