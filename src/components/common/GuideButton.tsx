@@ -75,13 +75,14 @@ const CreateButton = () => {
   }
 
   return (<>
-
     <Dialog>
-
       <DialogTrigger asChild>
-        <div className="fixed bottom-10 right-10 cursor-pointer">
-          <PlusIcon className="w-10 h-10 text-red-500 rounded-full bg-white hover:bg-gray-600 p-2" />
-        </div>
+      <div className="fixed bottom-10 right-10">
+  <div className="relative cursor-pointer z-10 hover:z-50">
+    <PlusIcon className="w-10 h-10 text-red-500 rounded-full bg-white hover:bg-gray-600 p-2" />
+  </div>
+</div>
+
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-md">

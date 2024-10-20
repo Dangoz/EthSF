@@ -15,7 +15,7 @@ export const ReviewCard = (props: {title: string, description: string, imageUrl:
   const handelLike: MouseEventHandler<HTMLDivElement> = (e) => {console.log(`Liked ${props.title}`); e.stopPropagation()}
   const handelClick = () => console.log(`Clicked ${props.title}`)
   return (
-  <Card className="hover:scale-105" onClick={handelClick}>
+  <Card onClick={handelClick}>
     <CardHeader>
       <CardTitle>{props.title}</CardTitle>
       <CardDescription>{props.description}</CardDescription>
