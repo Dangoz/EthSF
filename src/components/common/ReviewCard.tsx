@@ -9,6 +9,13 @@ import {
 import { CircleCheck, CirclePlus, Heart, MessageCircle, ThumbsDown } from "lucide-react"
 import { MouseEvent, MouseEventHandler } from "react";
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { SelectGuide } from "./SelectGuide";
+
 
 export const ReviewCard = (props: {title: string, description: string, imageUrl: string, isAdded: boolean, onAdd: (added: boolean) => void}) => {
   const handelDislike: MouseEventHandler<HTMLDivElement>  = (e) => {console.log(`Disiked ${props.title}`); e.stopPropagation()}
@@ -43,10 +50,8 @@ export const ReviewCard = (props: {title: string, description: string, imageUrl:
           <Heart className="w-6 h-6 text-red-500" />
         </div>
         
-        <div onClick={handelAdd} className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:scale-105">
-          {props.isAdded ? <CircleCheck className="w-6 h-6 text-gray-700" /> : <CirclePlus className="w-6 h-6 text-gray-700" />}
-        </div>
-
+          <SelectGuide/>
+        
       </>
       </CardFooter>
     </Card>
