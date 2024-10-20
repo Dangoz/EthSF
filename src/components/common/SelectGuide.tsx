@@ -34,7 +34,7 @@ export function SelectGuide(props: { guides: Guide[], onSelect: (guide: `0x${str
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 hover:scale-105"
+          className="flex items-center justify-center w-10 h-10 rounded-full bg-[#a797d5] hover:scale-105"
         >
           <CirclePlus className="w-6 h-6 text-gray-700" />
         </Button>

@@ -11,17 +11,29 @@ import axios from 'axios';
 import { Guide } from '@prisma/client';
 
 
-const Hero = () => <div className="flex flex-col items-center justify-center gap-8 p-16 md:p-24 lg:p-36 bg-gradient-to-r from-blue-50 to-white text-center">
-  <h1 className="scroll-m-20 text-5xl font-extrabold tracking-tight text-gray-900 lg:text-6xl">
-    Share Your Experiences
-  </h1>
-  <p className="max-w-2xl text-lg leading-relaxed text-gray-700 lg:text-xl">
-    Discover new places, savor unique flavors, and connect with fellow travelers. Share your honest reviews of food spots, hidden gems, and must-visit locations. Join our community and turn your adventures into inspiration for others!
-  </p>
-  <button className="mt-8 px-6 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700">
-    Get Started
-  </button>
-</div>
+const Hero = () => (
+  <div
+    className="flex flex-col items-center justify-center gap-8 pb-4 md:pb-8 lg:pb-16 p-16 md:p-24 lg:p-36 bg-gradient-to-r from-blue-50 to-white text-center relative"
+    style={{
+      backgroundImage: "url('/background.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      opacity: 0.9, // Adjust this for lightening
+    }}
+  >
+    <div className="absolute inset-0 bg-white opacity-60"></div> {/* Overlay to lighten */}
+    <h1 className="relative scroll-m-20 text-5xl font-extrabold tracking-tight text-black lg:text-6xl">
+      Share Your Experiences
+    </h1>
+    <p className="relative max-w-2xl text-lg leading-relaxed text-black lg:text-xl">
+      Discover new places, savor unique flavors, and connect with fellow travelers. Share your honest reviews of food spots, hidden gems, and must-visit locations. Join our community and turn your adventures into inspiration for others!
+    </p>
+    <button className="relative mt-8 px-6 py-3 text-lg font-semibold text-white bg-[#a797d5] rounded-lg shadow-lg hover:bg-blue-700">
+      Get Started
+    </button>
+  </div>
+);
+
 
 type Review = {
   ipAssetId: `0x${string}`;
@@ -60,7 +72,7 @@ const page = () => {
       <Hero />
 
       <Wrapper>
-        <Title name="Discover" />
+        <h2 className="scroll-m-20 text-3xl font-bold tracking-tight text-[#a797d5]">Discover</h2>
         <Input type="text" placeholder="Search" value={searchText} onChange={(e) => onChangeSearchText(e.target.value)} />
         <SearchSelectTabs activeTab={searchSelect} onTabChange={onChangeSearchSelect} />
 

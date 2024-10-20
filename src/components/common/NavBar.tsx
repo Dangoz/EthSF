@@ -9,7 +9,7 @@ import GuideButton from './GuideButton'
 const NavBar = () => {
   return (
     <>
-      <div className="flex justify-between items-center px-5 py-4 w-screen ">
+      <div className="flex justify-between items-center px-5 py-4 w-screen bg-[#a797d5]">
         <div className="">
           <NavMenu />
         </div>

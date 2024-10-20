@@ -55,18 +55,19 @@ const NavMenu = () => {
   const pathname = usePathname()
 
   return (
-    <div className="flex items-start gap-4 justify-center">
+    <div className="flex gap-4 justify-center items-center">
       <Image src="/logo2.png" alt="logo" width={200} height={150} />
+      <div className='font-extrabold'>Epicurean Advice & Travel</div>
       <nav className={cn(
-        "bg-black px-2 py-2 rounded-sm gap-4 flex",
-        "shadow-[rgba(111,109,120,0.1)_0px_0px_30px,rgba(60,57,63,0.4)_0px_0px_0px_1px]"
+        "bg-[#a797d5] px-2 py-2 rounded-sm gap-4 flex",
+        //"shadow-[rgba(111,109,120,0.1)_0px_0px_30px,rgba(60,57,63,0.4)_0px_0px_0px_1px]"
       )}
       >
         {/*
         <Menu/>
         */}
         <div className={cn(
-          "w-[100px] flex justify-center rounded-sm py-1 px-2",
+          "flex justify-center rounded-sm py-1 px-2",
           pathname === '/' && 'bg-slate-900/80 sm'
         )}>
           <Link href="/" className="text-white hover:text-gray-300">
@@ -74,7 +75,7 @@ const NavMenu = () => {
           </Link>
         </div>
         <div className={cn(
-          "w-[100px] flex justify-center rounded-sm py-1 px-2",
+          "flex justify-center rounded-sm py-1 px-2",
           pathname === '/discover' && 'bg-slate-900/80 sm'
         )}>
           <Link href="/discover" className="text-white hover:text-gray-300">

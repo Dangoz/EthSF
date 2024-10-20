@@ -134,8 +134,8 @@ export const CreateButton = () => {
         </div>
         */}
         <div className={cn(
-          "w-[100px] flex justify-center rounded-sm py-1 px-2",
-          pathname === '/discover' && 'bg-slate-900/80 sm'
+          "flex justify-center rounded-sm py-1 px-2",
+          // pathname === '/discover' && 'bg-slate-900/80 sm'
         )}>
           <div  className="text-white hover:text-gray-300 whitespace-nowrap">
             Create Review
