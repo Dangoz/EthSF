@@ -1,16 +1,14 @@
 import { uploadImageToIPFS } from "@/lib/pinata"
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
+import { readAllReviews } from "@/model/review";
 
 export const GET = async (req: NextRequest) => {
   try {
-    // assuming image of type file is present in request
-    
-    // TODO Get Reviews here
 
-    return NextResponse.json([
-      
-    ])
+    const reviews = await readAllReviews()
+
+    return NextResponse.json(reviews, { status: 200 })
 
   } catch (error) {
     console.log(error)

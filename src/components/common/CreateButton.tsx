@@ -85,6 +85,15 @@ const CreateButton = () => {
         `Root IPA created at transaction hash ${registeredIpAsset.txHash}, IPA ID: ${registeredIpAsset.ipId}, License Terms ID: ${registeredIpAsset.licenseTermsId}`
       );
 
+      // record the review
+      const res = await axios.post('/api/add-review', {
+        title,
+        description,
+        license,
+        ipfsUrl,
+        ipAssetId: registeredIpAsset.ipId
+      })
+
       if (registeredIpAsset.ipId) {
         // await handleRegisterDerivative(registeredIpAsset.ipId)
       }
@@ -185,7 +194,7 @@ const CreateButton = () => {
             {isCreating ? <Loader className="w-4 h-4 animate-spin" /> : 'Masons Button'}
           </Button>
 
-          
+
 
         </DialogFooter>
       </DialogContent>
